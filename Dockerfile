@@ -1,10 +1,19 @@
-FROM rust
+FROM rust:alpine AS builder
 
 WORKDIR /workspace
 
 COPY . .
 
-# Compile and install 3rd party dependencies
 RUN cargo install --path .
 
-ENTRYPOINT [ "./target/release/app_name"]
+FROM alpine
+
+WORKDIR /app
+
+COPY --from=builder --chown=app_user:app_user /workspace/target/release/app_name .
+
+RUN adduser -D app_user
+
+USER app_user
+
+CMD [ "./app_name" ]
