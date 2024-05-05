@@ -2,11 +2,11 @@ use diesel::{PgConnection, RunQueryDsl, Insertable};
 use crate::model::schema::users;
 
 #[derive(Debug, Insertable)]
-#[table_name = "users"]
+#[diesel(table_name = users)]
 pub struct User {
     pub(crate) id: i32,
-    pub(crate) username: String, // Change to String
-    pub(crate) email: String,    // Change to String
+    pub(crate) username: String, 
+    pub(crate) email: String,
     // Add other fields as needed
 }
 
