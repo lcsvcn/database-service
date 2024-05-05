@@ -1,19 +1,15 @@
-FROM rust:alpine AS builder
+FROM rust:slim-buster
 
-WORKDIR /workspace
-
-COPY . .
-
-RUN cargo install --path .
-
-FROM alpine
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y install libpq-dev
 
 WORKDIR /app
+COPY . /app/
+COPY .env.docker /app/.env
 
-COPY --from=builder --chown=app_user:app_user /workspace/target/release/app_name .
+RUN cargo build --release
 
-RUN adduser -D app_user
+EXPOSE 8080
 
-USER app_user
-
-CMD [ "./app_name" ]
+ENTRYPOINT ["/bin/bash", "-c", "cargo run --release"]
