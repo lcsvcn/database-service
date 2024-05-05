@@ -16,12 +16,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create docker image
-        run: docker build -t app_name .
+      - name: Generate .env file
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
+          echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env
+
+      - name: Build docker image
+        run: docker build --tag 'app' .
 
       - name: Run docker image
-        run: |
-          docker run -d -t -i \
-            -e DATABASE_URL=\$DATABASE_URL \
-            -e REDIS_URL=\$REDIS_URL \
-            app_name
+        run: docker run --detach 'app'
