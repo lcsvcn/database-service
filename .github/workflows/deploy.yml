@@ -20,4 +20,8 @@ jobs:
         run: docker build -t rust-app .
 
       - name: Run docker image
-        run: docker run rust-app
+        run: |
+          docker run -d -t -i \
+            -e DATABASE_URL=\$DATABASE_URL \
+            -e REDIS_URL=\$REDIS_URL \
+            rust-app
