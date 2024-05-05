@@ -6,7 +6,7 @@ RUN apt-get update && \
 
 WORKDIR /app
 COPY . /app/
-COPY .env.docker /app/.env
+COPY .env /app/.env
 
 RUN cargo build --release
 
