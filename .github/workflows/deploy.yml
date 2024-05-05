@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create docker image
-        run: docker build -t service .
+        run: docker build -t rust-app .
 
       - name: Run docker image
-        run: docker run service
+        run: docker run rust-app
