@@ -19,4 +19,4 @@ jobs:
           override: true
 
       - name: Build application in release mode
-        run: cargo run --release
+        run: docker build -t service .
