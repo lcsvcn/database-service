@@ -18,5 +18,8 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Build application in release mode
+      - name: create docker image
         run: docker build -t service .
+
+      - name: Run docker image
+        run: docker run service
