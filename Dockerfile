@@ -1,12 +1,10 @@
-FROM rust:latest
+FROM rust
 
-# 2. Copy the files in your machine to the Docker image
-WORKDIR /app
+WORKDIR /workspace
 
 COPY . .
 
-# Build your program for release
-RUN cargo build --release
+# Compile and install 3rd party dependencies
+RUN cargo install --path .
 
-# Run the binary
-CMD ["./target/release/rust-app"]
+ENTRYPOINT [ "./target/release/app_name"]
