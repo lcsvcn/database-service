@@ -29,10 +29,10 @@ fn main() {
 
     // Loop to continuously listen for new events
     loop {
-        let msg = pubsub.get_message().expect("Error receiving message from Redis");
-        let payload_str: String = msg.get_payload().unwrap();
+        let message = pubsub.get_message().expect("Error receiving message from Redis");
+        let payload: String = message.get_payload().unwrap();
         let event_payload: serde_json::Value =
-            serde_json::from_str(&payload_str).expect("Error parsing event payload");
+            serde_json::from_str(&payload).expect("Error parsing event payload");
 
         // Check event type and handle accordingly
         if let Some(event_type) = event_payload.get("event_type").and_then(|t| t.as_str()) {
