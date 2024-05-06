@@ -21,8 +21,8 @@ jobs:
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
           echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env
 
-      - name: Build docker compose
-        run: docker compose up -d
+      - name: Build and run Docker Compose
+        run: docker-compose build --build-arg "ARCH=x86_64" && docker-compose up -d
 
       - name: Clean docker system
         run: docker system prune -f
