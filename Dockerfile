@@ -46,4 +46,4 @@ COPY --from=build /lib/${ARCH}-linux-gnu/libkeyutils.so* /lib/${ARCH}-linux-gnu/
 # Application files
 COPY --from=build /usr/src/rust-app /usr/local/bin/rust-app
 
-CMD ["rust-app"]
+CMD ["rust-database"]
