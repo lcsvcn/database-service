@@ -26,3 +26,6 @@ jobs:
 
       - name: Run docker image
         run: docker run --detach 'app'
+
+      - name: Clean images
+        run: docker image prune -f
