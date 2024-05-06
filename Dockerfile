@@ -44,7 +44,6 @@ COPY --from=build /lib/${ARCH}-linux-gnu/libcom_err.so* /lib/${ARCH}-linux-gnu/
 COPY --from=build /lib/${ARCH}-linux-gnu/libkeyutils.so* /lib/${ARCH}-linux-gnu/
 
 # Application files
-COPY --from=build /usr/local/cargo/bin/rust-app /usr/local/bin/rust-app
-# COPY --from=build /usr/src/rust-app/.env /.env
+COPY --from=build /usr/src/rust-app /usr/local/bin/rust-app
 
 CMD ["rust-app"]
