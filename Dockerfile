@@ -1,6 +1,6 @@
 FROM rust:1.67 as build
 
-WORKDIR /usr/src/rust-app
+WORKDIR /usr/src/rust-database
 
 COPY . .
 
@@ -44,6 +44,7 @@ COPY --from=build /lib/${ARCH}-linux-gnu/libcom_err.so* /lib/${ARCH}-linux-gnu/
 COPY --from=build /lib/${ARCH}-linux-gnu/libkeyutils.so* /lib/${ARCH}-linux-gnu/
 
 # Application files
-COPY --from=build /usr/src/rust-app /usr/local/bin/rust-app
+COPY --from=build /usr/local/cargo/bin/rust-database /usr/local/bin/rust-database
+COPY --from=build /usr/src/rust-database/.env /.env
 
 CMD ["rust-database"]
