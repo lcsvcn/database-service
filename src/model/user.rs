@@ -11,9 +11,9 @@ pub struct User {
 }
 
 impl<'a> User {
-    pub(crate) fn register(connection: &mut PgConnection, new_user: User) {
+    pub(crate) fn register(connection: &mut PgConnection, new_user: &User) {
         diesel::insert_into(users::table)
-            .values(&new_user)
+            .values(new_user)
             .execute(connection)
             .expect("Error inserting user into database");
 

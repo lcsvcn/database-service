@@ -56,7 +56,7 @@ fn main() {
                         };
                         
                         // Register the user
-                        User::register(&mut connection, user_data);
+                        User::register(&mut connection, &user_data);
                     } else {
                         println!("Missing or invalid user data in event payload");
                     }
