@@ -21,11 +21,8 @@ jobs:
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
           echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env
 
-      - name: Build docker image
-        run: docker build --tag 'app' .
-
-      - name: Run docker image
-        run: docker run --detach 'app'
+      - name: Build docker compose
+        run: docker compose up -d
 
       - name: Clean images
         run: docker image prune -f
