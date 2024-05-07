@@ -1,9 +1,9 @@
-
 mod config;
 mod model {
     pub mod user;
     mod schema;
 }
+
 
 use diesel::{Connection, PgConnection};
 use redis::Client;
@@ -11,13 +11,25 @@ use serde_json::Value;
 use crate::config::Config;
 use crate::model::user::User;
 
+use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
+
+pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
+
+fn run_migration(connection: &mut PgConnection) {
+    connection.run_pending_migrations(MIGRATIONS).unwrap();
+}
+
 fn main() {
+
     // Initialize configuration
     let config = Config::from_env();
 
     // Initialize database connection
     let mut connection = PgConnection::establish(&config.database_url)
     .expect("Error connecting to database");
+    
+    // run migrations
+    run_migration(&mut connection);
 
     // Initialize Redis connection
     let redis_client = Client::open(config.redis_url.clone()).expect("Error connecting to Redis");
