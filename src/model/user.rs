@@ -2,7 +2,7 @@ use diesel::{PgConnection, RunQueryDsl, Insertable};
 use crate::model::schema::users;
 
 #[derive(Debug, Insertable)]
-#[table_name = "users"]
+#[diesel(table_name = users)]
 pub struct User {
     pub id: i32,
     pub username: String, 
@@ -16,6 +16,6 @@ impl User {
             .execute(connection)
             .expect("Error inserting user into database");
 
-        println!("Registered user: {:?}", new_user);
+        println!("Register {:?}", new_user);
     }
 }

@@ -54,12 +54,9 @@ impl DatabaseService {
                 id: id as i32,
                 username,
                 email,
-                // Other user fields...
             };
 
             User::register(&mut self.connection, &user_data);
-            
-            println!("Registered user: {:?}", user_data);
             
         } else {
             println!("Missing or invalid user data in event payload");
